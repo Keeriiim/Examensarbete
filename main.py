@@ -1,5 +1,8 @@
-import apiHandler
+from menuHandler import Menu
+import time
+#menu = Menu()
 
-api = apiHandler.APIHandler()
+t = time
+print(t.asctime())
 
 
