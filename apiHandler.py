@@ -18,8 +18,9 @@ class APIHandler:
 
 
     def payload(self): # Sets the payload for the game request
-        trivia_amount = input("How manny questions do you want? ( 1 - 50 ):    ")
-        trivia_choice = input("Choose a category: \n"
+        trivia_amount = "any"  #input("How manny questions do you want? ( 1 - 50 ):    ")
+        trivia_choice = (
+            input("Choose a category: \n"
                                 "1.General knowledge\n"
                                 "2.Entertainment: Books\n"
                                 "3.Entertainment: Film\n"
@@ -32,56 +33,55 @@ class APIHandler:
                                 "10.Animals\n"
                                 "11.Vehicles\n"
                                 "12.Science: Computers\n"
-                                "13.any\n")
+                                "13.any\n"))
 
         if trivia_choice == "1":
-            trivia_category = "9"
+            self.TRIVIA_CATEGORY = "9"
 
         elif trivia_choice == "2":
-            trivia_category = "10"
+            self.TRIVIA_CATEGORY = "10"
 
         elif trivia_choice == "3":
-            trivia_category = "11"
+            self.TRIVIA_CATEGORY = "11"
 
         elif trivia_choice == "4":
-            trivia_category = "14"
+            self.TRIVIA_CATEGORY = "14"
 
         elif trivia_choice == "5":
-            trivia_category = "15"
+            self.TRIVIA_CATEGORY = "15"
 
         elif trivia_choice == "6":
-            trivia_category = "16"
+            self.TRIVIA_CATEGORY = "16"
 
         elif trivia_choice == "7":
-            trivia_category = "29"
+            self.TRIVIA_CATEGORY = "29"
 
         elif trivia_choice == "8":
-            trivia_category = "20" # Mythologi
+            self.TRIVIA_CATEGORY = "20" # Mythologi
 
         elif trivia_choice == "9":
-            trivia_category = "22" # Geography
+            self.TRIVIA_CATEGORY = "22" # Geography
 
         elif trivia_choice == "10":
-            trivia_category = "27" # Animals
+            self.TRIVIA_CATEGORY = "27" # Animals
 
         elif trivia_choice == "11":
-            trivia_category = "28" # Vehicles
+            self.TRIVIA_CATEGORY = "28" # Vehicles
 
         elif trivia_choice == "12":
-            trivia_category = "any"
+            self.TRIVIA_CATEGORY = "any"
 
         trivia_difficulty = input("Difficulty: easy/medium/hard/any:    ")
 
         # Set the class constant variables
         self.TRIVIA_AMOUNT = trivia_amount
-        self.TRIVIA_CATEGORY = trivia_category
         self.TRIVIA_DIFFICULTY = trivia_difficulty
         self.TRIVIA_TYPE = "boolean"
         self.TRIVIA_ENCODE = "default"
 
 
 
-    def request(self): # Send a POST request via trivia API to recieve the game questions
+    def request(self): # Send a GET request via trivia API to recieve the game questions
         '''print(f"{self.TRIVIA_AMOUNT}")
         print(f"{self.TRIVIA_CATEGORY}")
         print(f"{self.TRIVIA_DIFFICULTY}")
@@ -89,7 +89,7 @@ class APIHandler:
         print(f"{self.TRIVIA_ENCODE}")'''
         data_dict = ""
 
-        url = "https://opentdb.com/api.php?amount="+self.TRIVIA_AMOUNT+"&category="+self.TRIVIA_CATEGORY+"&difficulty="+self.TRIVIA_DIFFICULTY+"&type="+self.TRIVIA_TYPE
+        url = "https://opentdb.com/api.php?amount="+self.TRIVIA_AMOUNT+"&difficulty="+self.TRIVIA_DIFFICULTY+"&type="+self.TRIVIA_TYPE
         response = requests.get(url) # Class object of Response, raw HTTP response as bytes in .content and string in .text
         '''print(response.status_code)
         print(response.headers.get("content-type").lower())'''
@@ -120,26 +120,6 @@ class APIHandler:
 
 
 
-'''
-        url ="https://opentdb.com/api_config.php"
-        payload = {
-            "trivia_amount": self.TRIVIA_AMOUNT,
-            "trivia_category": self.TRIVIA_CATEGORY,
-            "trivia_difficulty": self.TRIVIA_DIFFICULTY,
-            "trivia_type": self.TRIVIA_TYPE,
-            "trivia_encode": self.TRIVIA_ENCODE
-        }
-        headers = {
-            "method"
-        }
-        response = requests.post(url, data=payload)
-        print(response.text)
-        
-        # Parsing the data into a dictionary
-        print(response.text)
-        with open('questions.txt', 'w') as file:
-            file.write(response.text)
-        '''
 
 
 

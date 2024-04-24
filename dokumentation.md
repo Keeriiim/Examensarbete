@@ -45,3 +45,15 @@ user input ändra i payloaden
 <option value="30">Science: Gadgets</option>
 <option value="31">Entertainment: Japanese Anime &amp; Manga</option>
 <option value="32">Entertainment: Cartoon &amp; Animations</option>	
+
+
+
+
+
+
+Any categori -> self.category ska inte existera i api call
+
+Mer komplext spel -> funktion som kollar av diverse spelalternativ
+
+Enkelt -> 20 frågor alltid, random kategori
+Koppla ihopp två spelare på lokalhost

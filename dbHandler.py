@@ -18,22 +18,27 @@ class Database:
         if "mydatabase" not in dblist:
             self.create_default_collections()
 
-        def create_default_collections(self):
-            players_col = self.DB["players"]
-            default_player = {
-                "username": "Admin",
-                "password": "Admin"
-            }
-            players_col.insert_one(default_player)
+    def create_default_collections(self):
+        players_col = self.DB["players"]
+        default_player = {
+            "username": "Admin",
+            "password": "Admin"
+        }
+        players_col.insert_one(default_player)
 
-            game_logs_col = self.DB["game_logs"]
-            default_log = {
-                "username": "Admin",
-                "score": "TEST",
-                "subject": "TEST",
-                "time": time.asctime()
-            }
-            game_logs_col.insert_one(default_log)
+        game_logs_col = self.DB["game_logs"]
+        default_log = {
+            "username": "Admin",
+            "score": "0",
+            "subject": "Initiation",
+            "time": time.asctime()
+        }
+        game_logs_col.insert_one(default_log)
+
+
+
+
+
         '''
         if "mydatabase" in dblist:
             print("The database exists.")
