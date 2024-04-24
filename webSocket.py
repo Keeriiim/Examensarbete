@@ -20,7 +20,7 @@ class Server:
     async def handle_client(self, websocket, path):
         print(f"Accepted connection from {websocket.remote_address}")
         await websocket.send("Welcome to the server!")  # Send a welcome message to the client
-        await self.menu.
+        await self.menu.dq
         try:
             while True:
 
