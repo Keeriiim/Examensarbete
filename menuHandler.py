@@ -8,8 +8,9 @@ class Menu:
     def __init__(self):
         self.db = Database() # Instantiate the DB class. They are not static.
         self.quiz = Quiz #
-        self.server = Server() #
+        self.server=Server() # Starts the Server
         self.run() # Runs the program
+
 
 
 
@@ -41,15 +42,15 @@ class Menu:
 
 
     def switch_case(self): # Options for Main Menu
-        '''print('********* Main Menu *********\n'
+        print('********* Main Menu *********\n'
               '1. Create a player\n'
               '2. Log in as player\n'
               '3. Exit\n'
               '****************************')
         user = input('Choice: ')
-        '''
 
-        self.socket_handler(self,'********* Main Menu *********\n'
+
+        '''self.socket_handler(self,'********* Main Menu *********\n'
                             '1. Create a player\n'
                             '2. Log in as player\n'
                             '3. Exit\n'
@@ -67,25 +68,25 @@ class Menu:
             return True
         else:
             print('Exiting program')
-            return False'''
+            return False
 
     def switch_case_game(self):  # Options for Main Menu
-        '''print('********* Game Menu *********\n'
+        print('********* Game Menu *********\n'
               '1. Singleplayer\n'
               '2. Multiplayer\n'
               '3. Back\n'
               '****************************')
-        user = input('Choice: ')'''
+        user = input('Choice: ')
 
-        self.socket_handler('********* Game Menu *********\n' 
+        '''self.socket_handler('********* Game Menu *********\n' 
               '1. Singleplayer\n'
               '2. Multiplayer\n'
               '3. Back\n'
-              '****************************')
+              '****************************')'''
 
-        '''switcher = {  # Simple switch statement
+        switcher = {  # Simple switch statement
             "1": self.quiz,  # Removing the () so that they are not executed immediately
-            "2": self.server,
+            "2": self.server.start(),
             "3": False  # Works with False as well
         }
         result = switcher.get(user, self.default_switcher)  # Saves the function to result if 1-3 or default
@@ -94,7 +95,7 @@ class Menu:
             return True
         else:
 
-            return False'''
+            return False
 
 
     def default_switcher(self): # Default print if something goes wrong
@@ -102,9 +103,9 @@ class Menu:
         self.switch_case()
 
 
-    def socket_handler(self, input):
+    '''def socket_handler(self, input):
 
-        self.server.inputHandler(input)
+        self.server.inputHandler(input)'''
 
 
 

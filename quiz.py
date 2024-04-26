@@ -1,5 +1,4 @@
-from questions import questions_data
-from apiHandler import APIHandler
+from apiHandler import API
 from dbHandler import Database
 import time
 import pymongo
@@ -9,14 +8,15 @@ class Quiz:
 
 
     def __init__(self):
-        self.api = APIHandler()
+        self.api = API()
 
         print('Welcome to the game!')
         player_score = 0
 
+    def get_questions(self):
 
         # loop through every iteration for questions and answers
-        for data in questions_data:
+        '''for data in questions_data:
             print('Score = ' + str(player_score)+"/"+str(len(questions_data)))
             print(data['question'])
 
@@ -31,7 +31,7 @@ class Quiz:
         self.MAX_POINTS = len(questions_data)
         print(f'Ending score: {self.PLAYER_SCORE}')
         print()
-        print('Thank you for playing the game!')
+        print('Thank you for playing the game!')'''
 
 
     def game_log(self):
