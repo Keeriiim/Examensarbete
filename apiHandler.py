@@ -5,6 +5,7 @@ class API:
     TRIVIA_AMOUNT = ""
     TRIVIA_DIFFICULTY = ""
     TRIVIA_TYPE = ""
+    TRIVIA_CATEGORY =""
 
     def __init__(self):  # Constructor to start the class
         self.payload()
@@ -28,6 +29,7 @@ class API:
                 data_dict = response.json()
 
         question_list = []
+
         for data in data_dict["results"]:
             question = data["question"]
             answer = data["correct_answer"]

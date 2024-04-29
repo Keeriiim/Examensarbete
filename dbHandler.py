@@ -38,82 +38,72 @@ class Database:
 
 
 
+    def createPlayer(self, client_communicator, client_message_only):
+        client_message_username = '***** Create new player *****\n'\
+                         'Enter UserName: '
 
-        '''
-        if "mydatabase" in dblist:
-            print("The database exists.")
-        else:
-            # Important: In MongoDB, a database is not created until it gets content!
-            print(myClient.list_database_names())
-            if "players" in collist:
-                print("The collection exists.")
-            else:
-                # Important: In MongoDB, a collection is not created until it gets content!
-                mycol = self.DB["players"]
-                defualt_account = {
-                    "username": "Admin",
-                    "password": "Admin"
-                }
-                mycol.insert_one(defualt_account)
-                self.DB = myClient["mydatabase"]
-        if "game_logs" in collist:
-            print("The collection exists.")
-        else:
-            # Important: In MongoDB, a collection is not created until it gets content!
-            mycol = self.DB["game_logs"]
-            defualt_account = {
-                "username": "Admin",
-                "score": "TEST",
-                "subject": "TEST",
-                "time": time.asctime()
-            }
-            mycol.insert_one(defualt_account)
-            '''
-
-
-
-
-
-    def createPlayer(self):
-        print('\n***** Create new player *****')
-        userName = input('UserName: ')
+        client_response_username = client_communicator(client_message_username)
 
         if self.DB['players'].find_one({
-            "username":userName
+            "username":client_response_username
         }):
-            print('UserName already exists, try again')
-            self.createPlayer()
+            user_already_exists_error = 'UserName already exists, type ok to continue'
+            client_message_only(user_already_exists_error)
+
         else:
-            password = input('Password: ')
+            client_message_password = 'New password: '
+            client_response_password = client_communicator(client_message_password)
 
             self.DB['players'].insert_one({
-                "username": userName,
-                "password": password
+                "username": client_response_username,
+                "password": client_response_password
             })
-            print(f'Successfully created {userName}')
+            successfully_created_user = f'Successfully created {client_response_username}, type ok to continue\n'
+            client_message_only(successfully_created_user)
+            print(f'Successfully created {client_response_username}')
 
-    def logIn(self):
-        print('\n********** Log In **********')
-        username = input('UserName: ')
-        password = input('Password: ')
-        print('****************************')
+    def logIn(self, client_communicator, client_message_only):
+        client_message_username = '********** Log In **********\n'\
+                                  'Enter UserName: '
+
+        client_response_username = client_communicator(client_message_username)
+
+        client_message_password = 'Enter Password: '
+
+        client_response_password = client_communicator(client_message_password)
+
 
 
         user = self.DB['players'].find_one({
-            "username": username,
-            "password": password
+            "username": client_response_username,
+            "password": client_response_password
         })
 
         if user is not None:
-            print('LogIn Successfull!\n')
-            self.CURRENT_USER = username
+            log_in_success = 'LogIn Successfull!, type ok to continue'
+            client_message_only(log_in_success)
+            self.CURRENT_USER = client_response_username
         else:
             print('Wrong UserName or Password')
-            self.logIn()
+            log_in_error = 'Wrong UserName or Password, type ok to continue'
+            client_message_only(log_in_error)
 
 
-# Behöver hantera websocket för multiplayers !
-# Kommer skicka in infon i databasen gällande game
+
+
+    def game_log(self, score, amount, category):
+        game_logs_col = self.DB["game_logs"]
+        user = self.CURRENT_USER
+
+        new_log = {
+            "username": self.CURRENT_USER,
+            "score": str(score) + ' / ' + str(amount),
+            "subject": "any",
+            "time": time.asctime()
+        }
+
+        print(new_log)
+        #game_logs_col.insert_one(new_log)
 
 
 
