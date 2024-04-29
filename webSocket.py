@@ -14,22 +14,20 @@ class Server:
         self.clients = []  # List to store connected clients
         self.api = None  # Initialize API instance
         self.menu = Menu() # Initialize menu
-        self.quiz_started = False
+        self.client_running = True
         self.lock = threading.Lock()  # Lock for thread safety
 
     def start(self):
         self.socket.bind((self.host, self.port))
         self.socket.listen(1)
-        self.accept_client()
+        while self.client_running is True:
+            self.accept_client()
 
     def accept_client(self):
         self.client_socket, client_address = self.socket.accept()
         print(f"Client {client_address} connected.")
 
-        # Start the quiz once the client is connected
-        self.quiz_started = True
-        while self.quiz_started is True:
-            self.start_quiz()
+        self.start_quiz()
 
 
 
@@ -44,7 +42,7 @@ class Server:
 
         print('We passed the Auth, now its time to play !!!!!!!!')
         intro_message = '**************** QUIZ ****************\n'\
-                        'Answer the questions with true or false, if you want to end type quit.\n'
+                        'Answer the questions with true or false, if you want to end type quit.\n\n'
         self.client_message_only(intro_message)
 
         # Game loop:
@@ -65,7 +63,7 @@ class Server:
                     # Increment score
                     self.menu.set_score()
 
-            self.quiz_started = self.finished_quiz()
+            self.finished_quiz()
             still_running = False
 
 
@@ -80,9 +78,9 @@ class Server:
             client_response = self.client_socket.recv(1024).decode()
             if client_response.lower() == "yes":
                 self.menu.post_game_log(self.api.TRIVIA_CATEGORY)
-                return False
-            self.client_message_only('Thanks for playing')
-            return False
+
+            self.client_message_only('Thanks for playing, type quit')
+            self.client_running = False
         except ConnectionAbortedError:
             print("Connection aborted by the client.")
 
