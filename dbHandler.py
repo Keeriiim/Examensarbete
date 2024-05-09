@@ -1,7 +1,8 @@
 import pymongo
 import time
 class Database:
-    MYCLIENT_ADDRESS = "mongodb://localhost:27017/"
+    #MYCLIENT_ADDRESS = "mongodb://admin:admin@172.18.0.2:27016/"
+    MYCLIENT_ADDRESS = "mongodb://admin:admin@localhost:27016/"
     DB = ""
     CURRENT_USER =""
 

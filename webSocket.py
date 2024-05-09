@@ -1,6 +1,5 @@
 import socket
 import threading
-import time
 
 from questions import questions_data
 from apiHandler import API
@@ -10,7 +9,7 @@ class Server:
     def __init__(self):
         self.host = '127.0.0.1'  # Localhost
         self.port = 12345  # Choose any available port
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Network protocol ipv4, Network protocol TCP
         self.clients = []  # List to store connected clients
         self.api = None  # Initialize API instance
         self.menu = Menu() # Initialize menu
